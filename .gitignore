@@ -1,6 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 
+
 # Godot-specific ignores
 .import/
 export.cfg
@@ -16,3 +17,8 @@ mono_crash.*.json
 
 #project-specific
 raw/
+.gitignore
+.gitattributes
+icon.svg
+icon.svg.import
+project.godot
