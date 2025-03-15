@@ -209,6 +209,7 @@ public partial class UIAutocompleteController : Control, ICanInitialize{
         }
 
         string formattedString = b.ToString();
+        //colorcode types
         foreach (KeyValuePair<string, string> kvp in DCExtensions.TypeReplacementStrings){
             string replace = formattedString.Replace(kvp.Key,
                 $"[color={DCColorTheme.Suggestions["Type"]}]{kvp.Value}[/color]");

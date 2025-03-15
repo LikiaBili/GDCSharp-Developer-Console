@@ -23,6 +23,7 @@ public partial class DeveloperConsoleUI : CanvasLayer{
     #endregion
 
     public override void _Ready(){
+        Hide();
         InitializeSystem();
     }
 

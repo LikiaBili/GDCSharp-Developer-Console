@@ -41,7 +41,7 @@ public static partial class DCExtensions{
             return string.Empty;
 
         return string.Join(", ", infos.Select(info =>
-            $"{info.ParameterType.BaselessString()} {info.Name}"));
+            $"{info.ParameterType.BaselessString()} {info.Name}{(info.IsOptional ? $" = {(info.HasDefaultValue ? info.DefaultValue : "null")}" : "")}"));
     }
 
     public static string SetWidth(this string s, int desiredWidth){

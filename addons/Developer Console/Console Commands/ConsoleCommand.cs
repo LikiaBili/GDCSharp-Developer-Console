@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace hamsterbyte.DeveloperConsole;
@@ -29,7 +30,11 @@ public class ConsoleCommand{
         }
 
         ParameterInfo[] commandParameterInfos = method.GetParameters();
-        ValidateParameterCount(commandParameterInfos.Length, decomposedCommand.Length - 1, method.Name);
+        ValidateParameterCount(
+            commandParameterInfos.Length,
+            commandParameterInfos.Count(item => !item.IsOptional),
+            decomposedCommand.Length - 1,
+            method.Name);
 
         object[] parameters = ParseParameters(decomposedCommand, commandParameterInfos);
 
@@ -40,9 +45,9 @@ public class ConsoleCommand{
         return commandString.Split(new[]{ '(', ',', ')' }, StringSplitOptions.RemoveEmptyEntries);
     }
 
-    private static void ValidateParameterCount(int expectedCount, int actualCount, string methodName){
-        if (expectedCount != actualCount){
-            throw new DCParameterMismatchException(methodName, expectedCount);
+    private static void ValidateParameterCount(int expectedCount,int requiredCount, int givenCount, string methodName){
+        if (!(givenCount >= requiredCount && givenCount <= expectedCount)){
+            throw new DCParameterMismatchException(methodName, expectedCount, givenCount, requiredCount);
         }
     }
 
